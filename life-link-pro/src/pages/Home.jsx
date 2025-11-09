@@ -122,8 +122,8 @@ export default function Home({ navigate, alert }) {
 
           {/* Weather */}
           {weather ? (
-            <div className="flex items-center gap-3">
-              <img src={weather.icon} alt="Weather Icon" className="w-8 h-8" />
+            <div className="flex items-center gap-4">
+              <img src={weather.icon} alt="Weather Icon" className="w-10 h-10" />
               <p className="text-sm text-gray-700">
                 {weather.location}: {weather.condition}, {weather.temp}°C
               </p>
@@ -133,18 +133,13 @@ export default function Home({ navigate, alert }) {
           )}
 
           {/* Siren Button */}
-          <button
-            onClick={playSiren}
-            className="w-full bg-yellow-500 text-black font-semibold py-2 rounded-lg hover:bg-yellow-400 transition"
-          >
-            {isPlaying ? "🚨 Pause Siren" : "🚨 Play Distress Siren"}
-          </button>
-        </div>
+
       </div>
 
       {/* Main Buttons */}
       <div className="flex-1 p-4 space-y-3">
-        {/* Send SOS - Large prominent button */}
+
+        {/* SEND SOS - Large prominent button */}
         <button
           onClick={() => navigate("sos")}
           className="w-full bg-red-600 border-4 border-red-400 text-white py-7 rounded-2xl text-3xl font-bold shadow-2xl hover:bg-red-700 transition-all hover:scale-105 animate-pulse"
@@ -152,20 +147,25 @@ export default function Home({ navigate, alert }) {
           SEND SOS
         </button>
 
-        {/* Top Row - Two smaller buttons */}
+        {/* Top Row - Siren + Shelters */}
         <div className="grid grid-cols-2 gap-3">
+
+          {/* ✅ Siren Button (icon on top) */}
           <button
-            onClick={() => navigate("hazards")}
-            className="bg-blue-600 border-2 border-blue-400 rounded-xl p-4 flex flex-col items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition-all hover:scale-105"
+            onClick={playSiren}
+            className="bg-yellow-500 border-2 border-yellow-400 rounded-xl p-4 flex flex-col items-center justify-center gap-2 shadow-lg hover:bg-yellow-400 transition-all hover:scale-105"
           >
             <img 
-              src="/icons/hazard.png" 
-              alt="Hazard" 
+              src="/icons/siren.png"
+              alt="Siren" 
               className="w-12 h-12 object-contain"
             />
-            <span className="font-semibold text-sm text-center text-white">Hazard Reports</span>
+            <span className="font-semibold text-sm text-center text-black">
+              {isPlaying ? "Pause Siren" : "Play Siren"}
+            </span>
           </button>
-          
+
+          {/* Shelters button (unchanged) */}
           <button
             onClick={() => navigate("shelters")}
             className="bg-purple-600 border-2 border-purple-400 rounded-xl p-4 flex flex-col items-center justify-center gap-2 shadow-lg hover:bg-purple-700 transition-all hover:scale-105"
@@ -181,6 +181,28 @@ export default function Home({ navigate, alert }) {
             </div>
           </button>
         </div>
+
+        {/* ✅ Hazard Reports now at the bottom with left icon + right text */}
+        <button
+          onClick={() => navigate("hazards")}
+          className="w-full bg-blue-600 border-2 border-blue-400 rounded-xl p-4 py-6 flex items-center gap-4 shadow-lg hover:bg-blue-700 transition-all hover:scale-105"
+        >
+          <img
+            src="/icons/hazard.png"
+            alt="Hazard Reports"
+            className="w-12 h-12 object-contain"
+          />
+
+          {/* This wrapper centers the text properly */}
+          <div className="flex-1 text-center">
+            <span className="text-white font-semibold text-2xl">
+              Hazard Reports
+            </span>
+          </div>
+        </button>
+
+
+      </div>
       </div>
     </div>
   );
