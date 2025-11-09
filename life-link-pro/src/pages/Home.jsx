@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Logo from "/public/icons/logo_logo.png";
 import Logo_text from "/public/icons/logo_text.png";
+import Logo from "/public/icons/logo_logo.png";
+import Logo_text from "/public/icons/logo_text.png";
 
 export default function Home({ navigate }) {
   const [weather, setWeather] = useState(null);
@@ -77,19 +79,21 @@ export default function Home({ navigate }) {
     <div className="h-full w-full flex flex-col">
 
       {/* Header */}
-      <div className="p-5 border-b bg-gray-50 relative">
+      <div className="p-5 border-b bg-gray-50">
+        <div className="flex items-center gap-3">
+          <img 
+            src={Logo}
+            alt="App Logo"
+            className="w-20 h-20 object-contain"
+          />
 
-        {/* Left Logo */}
-        <img
-          src={Logo}
-          alt="App Logo"
-          className="w-20 h-20 object-contain absolute left-5 top-1/2 -translate-y-1/2"
-        />
-
-        {/* Centered Text */}
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-800">Life-Link Live</h1>
-          <p className="text-xs text-gray-500">Offline disaster response</p>
+          <div className="flex items-center"> 
+            <img 
+              src={Logo_text}
+              alt="Life-Link Live"
+              className="w-35 h-auto object-contain" 
+            />
+          </div>
         </div>
 
         {/* Profile Button (Right) */}
@@ -100,6 +104,7 @@ export default function Home({ navigate }) {
           <img src="/icons/user.png" className="w-7 h-7" alt="Profile" />
         </button>
       </div>
+
 
       {/* Status Section */}
       <div className="p-4">
