@@ -86,7 +86,6 @@ export default function Home({ navigate }) {
 
           <div className="flex flex-col text-center">
             <h1 className="text-2xl font-bold text-gray-800">Life-Link Live</h1>
-            <p className="text-xs text-gray-500">Offline disaster response</p>
           </div>
         </div>
       </div>
