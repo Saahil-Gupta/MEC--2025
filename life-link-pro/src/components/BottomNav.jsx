@@ -1,7 +1,6 @@
 export default function BottomNav({ navigate, current }) {
   const links = [
     { id: "home", label: "Home" },
-    { id: "hazards", label: "Hazards" },
     { id: "sos", label: "SOS" },
     { id: "firstAid", label: "First Aid" },
   ];

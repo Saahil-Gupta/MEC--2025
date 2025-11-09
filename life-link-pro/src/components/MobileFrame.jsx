@@ -5,7 +5,8 @@ export default function MobileFrame({ children, navigate, current }) {
   return (
     <div className="w-full h-screen flex justify-center items-start bg-gray-200 overflow-auto">
       <div
-        className="w-[390px]
+        className="
+          w-[390px]
           h-[800px]
           bg-white
           rounded-[40px]
@@ -14,10 +15,19 @@ export default function MobileFrame({ children, navigate, current }) {
           shadow-2xl
           overflow-hidden
           mt-6
-        ">
-      <StatusBar />
-      <div className="flex-1 overflow-y-auto">{children}</div>
-      <BottomNav navigate={navigate} current={current} />
+          flex flex-col
+        "
+      >
+        <StatusBar />
+
+        {/* MAIN CONTENT AREA */}
+        <div className="flex-1 min-h-0 overflow-y-auto">
+          {children}
+        </div>
+
+        {/* BOTTOM NAV */}
+        <BottomNav navigate={navigate} current={current} />
+      </div>
     </div>
   );
 }
