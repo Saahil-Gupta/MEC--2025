@@ -2,34 +2,78 @@ import { useEffect, useState } from "react";
 
 export default function Home({ navigate }) {
   const [weather, setWeather] = useState(null);
+  const [alert, setAlert] = useState(null);
 
-  // --- Weather API Fetch ---
+  // List of simulated disasters
+  const disasters = [
+    {
+      event: "Flood Warning",
+      desc: "Heavy rainfall causing water levels to rise. Avoid low-lying areas.",
+      sender: "National Weather Service",
+      color: "bg-blue-100 text-blue-800 border-blue-400",
+    },
+    {
+      event: "Earthquake Alert",
+      desc: "Seismic activity detected nearby. Take cover under sturdy furniture.",
+      sender: "Geological Safety Agency",
+      color: "bg-yellow-100 text-yellow-800 border-yellow-400",
+    },
+    {
+      event: "Hurricane Watch",
+      desc: "High winds and heavy rain expected in coastal areas.",
+      sender: "Disaster Response Unit",
+      color: "bg-red-100 text-red-800 border-red-400",
+    },
+    {
+      event: "Tornado Warning",
+      desc: "Seek shelter immediately. Avoid windows and stay indoors.",
+      sender: "Emergency Broadcast Center",
+      color: "bg-orange-100 text-orange-800 border-orange-400",
+    },
+    {
+      event: "Wildfire Risk",
+      desc: "Dry conditions increase fire danger. Avoid open flames.",
+      sender: "Forest Fire Management Authority",
+      color: "bg-green-100 text-green-800 border-green-400",
+    },
+    {
+      event: "Storm Alert",
+      desc: "Severe thunderstorm expected. Stay indoors and unplug electronics.",
+      sender: "Weather Safety Bureau",
+      color: "bg-purple-100 text-purple-800 border-purple-400",
+    },
+  ];
+
+  // Randomize disaster + fetch weather
   useEffect(() => {
+    // Random disaster selection
+    const randomIndex = Math.floor(Math.random() * disasters.length);
+    setAlert(disasters[randomIndex]);
+
+    // Optional: Fetch weather
     const fetchWeather = async () => {
       try {
         const res = await fetch(
-          `https://api.weatherapi.com/v1/current.json?key=2f174315328f40e0bae195832250911&q=Hamilton`
+          `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_WEATHER_API_KEY}&q=Hamilton`
         );
         const data = await res.json();
         setWeather({
           temp: Math.round(data.current.temp_c),
           condition: data.current.condition.text,
           icon: data.current.condition.icon,
+          location: data.location.name,
         });
       } catch (err) {
-        console.error("Weather fetch failed", err);
+        console.error("Failed to fetch weather", err);
       }
     };
 
     fetchWeather();
   }, []);
 
-  // --- Placeholder for Siren Sound ---
   const playSiren = () => {
-    // When you add your siren file later, you can uncomment this:
-    // const audio = new Audio("/siren.mp3");
-    // audio.play();
-    alert("🔊 Siren would play here (add your audio later).");
+    // To be implemented later
+    alert("🔊 Siren would play here!");
   };
 
   return (
@@ -40,24 +84,34 @@ export default function Home({ navigate }) {
         <p className="text-xs text-gray-500">Offline disaster response</p>
       </div>
 
-      {/* Status Section */}
+      {/* Simulated Alert Section */}
       <div className="p-4">
         <div className="bg-gray-100 rounded-xl shadow-sm p-4 space-y-3">
           <h2 className="text-sm font-semibold text-gray-700">
             Current Status
           </h2>
 
-          {/* Alert */}
-          <p className="text-sm text-red-600">
-            ⚠️ Flood warning in effect — Stay indoors!
-          </p>
+          {/* Randomized Alert */}
+          {alert ? (
+            <div
+              className={`border rounded-lg p-3 ${alert.color} transition-all`}
+            >
+              <p className="font-bold text-lg">⚠️ {alert.event}</p>
+              <p className="text-sm mt-1">{alert.desc}</p>
+              <p className="text-xs text-gray-600 mt-2">
+                Issued by: {alert.sender}
+              </p>
+            </div>
+          ) : (
+            <p className="text-gray-500 text-sm">✅ No active alerts.</p>
+          )}
 
-          {/* Weather */}
+          {/* Weather Section */}
           {weather ? (
             <div className="flex items-center gap-3">
               <img src={weather.icon} alt="Weather Icon" className="w-8 h-8" />
               <p className="text-sm text-gray-700">
-                {weather.condition}, {weather.temp}°C
+                {weather.location}: {weather.condition}, {weather.temp}°C
               </p>
             </div>
           ) : (
@@ -74,7 +128,7 @@ export default function Home({ navigate }) {
         </div>
       </div>
 
-      {/* Main Buttons */}
+      {/* Main Navigation Buttons */}
       <div className="flex-1 p-6 space-y-4">
         <button
           onClick={() => navigate("sos")}
