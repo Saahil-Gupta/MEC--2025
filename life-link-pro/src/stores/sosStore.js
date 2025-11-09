@@ -1,29 +1,39 @@
-// stores/sosStore.js
-let sosList = JSON.parse(localStorage.getItem("sosList") || "[]");
+// src/stores/sosStore.js
+import { uid } from "../utils/id";
+import { getData, setData, broadcast } from "../utils/storage";
+
+let sosList = getData("sosList"); // Load safely
 let listeners = [];
 
-function update() {
-  localStorage.setItem("sosList", JSON.stringify(sosList));
-  listeners.forEach(cb => cb([...sosList]));
+// 🔁 Update and notify all subscribers
+function updateSOS() {
+  setData("sosList", sosList);
+  listeners.forEach((cb) => cb([...sosList]));
 }
 
-export function sendSOS(sos) {
-  sosList.push(sos);
-  update();
-
-  // broadcast
-  localStorage.setItem("sos-broadcast", JSON.stringify(sos));
+// 🚨 Send new SOS message
+export function sendSOS(msg) {
+  const newSOS = { id: uid(), ...msg };
+  sosList.push(newSOS);
+  updateSOS();
+  broadcast("sos", newSOS); // Simulated P2P sync
 }
 
+// 👂 Subscribe to updates
 export function subscribeSOS(callback) {
   listeners.push(callback);
-  callback([...sosList]);
+  callback([...sosList]); // Initial load
 }
 
+// 🌐 Sync SOS across tabs
 window.addEventListener("storage", (e) => {
-  if (e.key === "sos-broadcast") {
-    const sos = JSON.parse(e.newValue);
-    sosList.push(sos);
-    update();
+  if (e.key === "sos-broadcast" && e.newValue) {
+    try {
+      const sos = JSON.parse(e.newValue);
+      sosList.push(sos);
+      updateSOS();
+    } catch (err) {
+      console.error("Failed to parse SOS broadcast", err);
+    }
   }
 });
