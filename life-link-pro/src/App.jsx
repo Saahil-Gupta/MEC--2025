@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import MobileFrame from "./components/MobileFrame";
+import MobileFrame from "./components/MobileFrame";
 
 import Home from "./pages/Home";
 import SOS from "./pages/SOS";
