@@ -102,17 +102,7 @@ export default function DisasterFAQ({ navigate }) {
           <p>{selectedQuestion.answer}</p>
         </div>
 
-        <div className="flex justify-center mt-6">
-          <button
-            onClick={() => {
-              setSelectedEvent(null);
-              setSelectedQuestion(null);
-            }}
-            className="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 active:scale-95 transition-transform"
-          >
-            Done ✅
-          </button>
-        </div>
+
       </div>
     </div>
   );
