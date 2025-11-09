@@ -12,7 +12,7 @@ export default function MobileFrame({ children, navigate, current }) {
           rounded-[40px]
           border-[12px]
           border-black
-          shadow-2xl
+          shadow-[0_0_40px_rgba(255,255,255,0.4)]
           overflow-hidden
           mt-6
           flex flex-col

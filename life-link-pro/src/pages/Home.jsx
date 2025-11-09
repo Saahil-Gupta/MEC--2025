@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
-import Logo from "/public/icons/logo_logo.png";
-import Logo_text from "/public/icons/logo_text.png";
+import Logo from "/icons/logo_logo.png";
+import Logo_text from "/icons/logo_text.png";
 
 export default function Home({ navigate }) {
   const [weather, setWeather] = useState(null);

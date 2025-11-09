@@ -20,7 +20,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-blur-overlay">
       <MobileFrame navigate={navigate} current={page}>
         {page === "home" && <Home navigate={navigate} />}
         {page === "sos" && <SOS navigate={navigate} />}
