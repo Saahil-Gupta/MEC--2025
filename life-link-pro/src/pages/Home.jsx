@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef } from "react";
-import Logo from "/icons/logo_logo.png";
-import Logo_text from "/icons/logo_text.png";
+import { useEffect, useState } from "react";
+import Logo from "/public/icons/logo_logo.png";
+import Logo_text from "/public/icons/logo_text.png";
 
 export default function Home({ navigate }) {
   const [weather, setWeather] = useState(null);
@@ -144,8 +144,8 @@ export default function Home({ navigate }) {
     </div>
 
       {/* Status Section */}
-      <div className="p-4">
-        <div className="bg-gray-100 rounded-xl shadow-sm p-4 space-y-3">
+      <div className="p-3">
+        <div className="bg-gray-100 rounded-xl shadow-sm p-3 space-y-0.5">
           <h2 className="text-sm font-semibold text-gray-700">
             Current Status
           </h2>
@@ -178,7 +178,7 @@ export default function Home({ navigate }) {
           {/* Siren Button */}
           <button
             onClick={playSiren}
-            className="w-full bg-yellow-500 text-black font-semibold py-2 rounded-lg hover:bg-yellow-400 transition"
+            className="w-full bg-yellow-500 text-white font-semibold py-2 rounded-lg hover:bg-yellow-400 transition"
           >
             {isPlaying ? "🚨 Pause Siren" : "🚨 Play Distress Siren"}
           </button>
@@ -186,10 +186,11 @@ export default function Home({ navigate }) {
       </div>
 
       {/* Main Buttons */}
-      <div className="flex-1 p-6 space-y-4">
+      <div className="flex-1 p-3 space-y-2">
+        {/* Send SOS - Large prominent button */}
         <button
           onClick={() => navigate("sos")}
-          className="w-full bg-red-600 text-white py-5 rounded-xl text-xl font-semibold shadow-md hover:bg-red-700"
+          className="w-full bg-red-600 border-4 border-red-400 text-white py-7 rounded-2xl text-3xl font-bold shadow-2xl hover:bg-red-700 transition-all hover:scale-105 animate-pulse"
         >
           SEND SOS
         </button>
@@ -215,8 +216,18 @@ export default function Home({ navigate }) {
           Find Nearby Shelters
         </button>
 
+    
+        <button
+          onClick={() => navigate("faq")}
+          className="w-full bg-orange-500 text-white py-4 rounded-xl text-lg shadow-md hover:bg-orange-600"
+        >
+          Emergency FAQs
+        </button>
+
+
 
       </div>
     </div>
   );
 }
+
