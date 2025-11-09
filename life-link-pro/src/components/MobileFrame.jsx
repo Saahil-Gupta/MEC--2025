@@ -1,9 +1,9 @@
-export default function MobileFrame({ children }) {
+import StatusBar from "../components/StatusBar";
+import BottomNav from "../components/BottomNav";
+
+export default function MobileFrame({ children, navigate, current }) {
   return (
-    <div className="w-full h-screen flex justify-center items-start bg-gray-200 overflow-auto">
-      <div
-        className="
-          w-[390px]
+    <div className="w-[390px]
           h-[800px]
           bg-white
           rounded-[40px]
@@ -12,10 +12,10 @@ export default function MobileFrame({ children }) {
           shadow-2xl
           overflow-hidden
           mt-6
-        "
-      >
-        {children}
-      </div>
+        ">
+      <StatusBar />
+      <div className="flex-1 overflow-y-auto">{children}</div>
+      <BottomNav navigate={navigate} current={current} />
     </div>
   );
 }

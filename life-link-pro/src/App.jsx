@@ -13,13 +13,14 @@ export default function App() {
   const navigate = (p) => setPage(p);
 
   return (
-    <MobileFrame>
-      {page === "home" && <Home navigate={navigate} />}
-      {page === "sos" && <SOS navigate={navigate} />}
-      {page === "hazards" && <HazardMap navigate={navigate} />}
-      {page === "addHazard" && <AddHazard navigate={navigate} />}
-      {page === "firstAid" && <FirstAid navigate={navigate} />}
-    </MobileFrame>
-    
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <MobileFrame navigate={navigate} current={page}>
+        {page === "home" && <Home navigate={navigate} />}
+        {page === "sos" && <SOS navigate={navigate} />}
+        {page === "hazards" && <HazardMap navigate={navigate} />}
+        {page === "addHazard" && <AddHazard navigate={navigate} />}
+        {page === "firstAid" && <FirstAid navigate={navigate} />}
+      </MobileFrame>
+    </div>
   );
 }
