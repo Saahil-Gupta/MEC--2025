@@ -1,16 +1,110 @@
-import { addHazard } from "../stores/hazardStore";
+// import { addHazard } from "../stores/hazardStore";
+// import { useState } from "react";
+// import { pendingHazardPos } from "../stores/hazardStore";
+
+// // export default function AddHazard({ navigate, lat, lng }) {
+// export default function AddHazard({ navigate }) {
+//   const { lat, lng } = pendingHazardPos || {};
+//   const [severity, setSeverity] = useState("low");
+
+//   const submit = () => {
+//     addHazard({
+//       id: Date.now(),
+//       lat,
+//       lng,
+//       severity,
+//     });
+//     navigate("hazards");
+//   };
+
+//   const SevBtn = ({ value, label }) => (
+//     <button
+//       onClick={() => setSeverity(value)}
+//       className={`flex-1 py-3 rounded-xl border ${
+//         severity === value ? "bg-black text-white" : "bg-white"
+//       }`}
+//     >
+//       {label}
+//     </button>
+//   );
+
+//   if (!lat || !lng) {
+//     return (
+//       <div className="p-5">
+//         <p className="text-red-600 font-semibold">No location selected.</p>
+//         <button onClick={() => navigate("hazards")} className="text-blue-600 mt-3">← Back</button>
+//       </div>
+//     );
+//   }
+//   return (
+//     <div className="h-full w-full flex flex-col">
+//       <div className="p-4 border-b flex items-center gap-3">
+//         <button onClick={() => navigate("hazards")} className="text-blue-600">
+//           ← Back
+//         </button>
+//         <h2 className="text-xl font-bold">Add Hazard</h2>
+//       </div>
+
+//       <div className="p-5 space-y-5">
+
+//         <div>
+//           <div className="text-sm font-semibold mb-2">Severity</div>
+//           <div className="flex gap-3">
+//             <SevBtn value="low" label="Low" />
+//             <SevBtn value="medium" label="Medium" />
+//             <SevBtn value="high" label="High" />
+//           </div>
+//         </div>
+
+//         <button
+//           onClick={submit}
+//           className="w-full bg-blue-600 text-white py-4 rounded-xl text-lg"
+//         >
+//           Confirm Hazard
+//         </button>
+//       </div>
+//     </div>
+//   );
+// }
+
+import { addHazard, pendingHazardPos } from "../stores/hazardStore";
 import { useState } from "react";
 
-export default function AddHazard({ navigate, lat, lng }) {
-  const [severity, setSeverity] = useState("low");
+export default function AddHazard({ navigate }) {
+
+  // ✅ Get lat/lng from global store (set in HazardMap)
+  const { lat, lng } = pendingHazardPos || {};
+
+  // ✅ Safety check (should never show unless something breaks)
+  if (typeof lat !== "number" || typeof lng !== "number") {
+    return (
+      <div className="p-5">
+        <h2 className="text-lg font-bold text-red-600 mb-3">
+          No location selected!
+        </h2>
+        <p className="text-gray-700">
+          Please go back to the map and tap a location to add a hazard.
+        </p>
+
+        <button
+          onClick={() => navigate("hazards")}
+          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
+        >
+          ← Back to Map
+        </button>
+      </div>
+    );
+  }
+
+  const [severity, setSeverity] = useState("Low");
 
   const submit = () => {
     addHazard({
-      id: Date.now(),
       lat,
       lng,
-      severity,
+      severity, // ✅ hazardStore generates the ID
     });
+
     navigate("hazards");
   };
 
@@ -27,6 +121,8 @@ export default function AddHazard({ navigate, lat, lng }) {
 
   return (
     <div className="h-full w-full flex flex-col">
+      
+      {/* Header */}
       <div className="p-4 border-b flex items-center gap-3">
         <button onClick={() => navigate("hazards")} className="text-blue-600">
           ← Back
@@ -34,14 +130,15 @@ export default function AddHazard({ navigate, lat, lng }) {
         <h2 className="text-xl font-bold">Add Hazard</h2>
       </div>
 
+      {/* Content */}
       <div className="p-5 space-y-5">
 
         <div>
           <div className="text-sm font-semibold mb-2">Severity</div>
           <div className="flex gap-3">
-            <SevBtn value="low" label="Low" />
-            <SevBtn value="medium" label="Medium" />
-            <SevBtn value="high" label="High" />
+            <SevBtn value="Low" label="Low" />
+            <SevBtn value="Medium" label="Medium" />
+            <SevBtn value="High" label="High" />
           </div>
         </div>
 
