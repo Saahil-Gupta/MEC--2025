@@ -5,7 +5,7 @@ export default function SOS({ navigate }) {
   const [feed, setFeed] = useState([]);
   const [filter, setFilter] = useState("ALL");
 
-  // 📡 Subscribe and auto-refresh when list changes
+  // Subscribe and auto-refresh when list changes
   useEffect(() => {
     const unsubscribe = subscribeSOS((list) => {
       setFeed(sortByPriority(filterSOS(filter)));
@@ -13,7 +13,7 @@ export default function SOS({ navigate }) {
     return () => unsubscribe();
   }, [filter]);
 
-  // 🚨 Trigger SOS by severity
+  // Trigger SOS by severity
   const triggerSOS = (severity) => {
     sendSOS({
       severity,
@@ -29,7 +29,7 @@ export default function SOS({ navigate }) {
     setFeed(sortByPriority(filterSOS(filter)));
   };
 
-  // 🎨 Severity color themes
+  // Severity color themes
   const getSeverityStyle = (severity) => {
     switch (severity) {
       case "HIGH":
