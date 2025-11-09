@@ -117,7 +117,7 @@ export default function Profile({ navigate }) {
           <div className="flex flex-col items-center space-y-4">
             {/* Placeholder Image */}
             <img
-              src="/icons/placeholder.png"
+              src="/icons/placeholder_user.png"
               alt="User"
               className="w-24 h-24 rounded-full border-2 border-gray-300"
             />
