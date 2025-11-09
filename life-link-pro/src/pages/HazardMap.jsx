@@ -6,6 +6,18 @@ import { subscribeHazards } from "../stores/hazardStore";
 export default function HazardMap({ navigate }) {
   const [hazards, setHazards] = useState([]);
   const [selectedPos, setSelectedPos] = useState(null);
+  const highIcon = new L.Icon({
+  iconUrl: "/icons/black-marker.png",
+  iconSize: [32, 32],
+  });
+  const mediumIcon = new L.Icon({
+    iconUrl: "/icons/red-marker.png",
+    iconSize: [32, 32],
+  });
+  const lowIcon = new L.Icon({
+    iconUrl: "/icons/yellow-marker.png",
+    iconSize: [32, 32],
+  });
 
   useEffect(() => {
     const unsub = subscribeHazards(setHazards);
@@ -22,15 +34,7 @@ export default function HazardMap({ navigate }) {
   }
 
   const iconFor = (sev) =>
-    new L.Icon({
-      iconUrl:
-        sev === "high"
-          ? "https://cdn-icons-png.flaticon.com/512/565/565547.png"
-          : sev === "medium"
-          ? "https://cdn-icons-png.flaticon.com/512/1038/1038100.png"
-          : "https://cdn-icons-png.flaticon.com/512/190/190411.png",
-      iconSize: [32, 32],
-    });
+    sev === "high" ? highIcon : sev === "medium" ? mediumIcon : lowIcon;
 
   return (
     <div className="h-full w-full flex flex-col">
