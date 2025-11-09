@@ -67,8 +67,8 @@ export function filterSOS(level) {
   return sosList.filter((s) => s.severity === level);
 }
 
-// ✅ Mark SOS as resolved
+// 🧹 COMPLETELY DELETE SOS
 export function markResolved(id) {
-  sosList = sosList.map((s) => (s.id === id ? { ...s, resolved: true } : s));
+  sosList = sosList.filter((s) => s.id !== id);
   updateSOS();
 }

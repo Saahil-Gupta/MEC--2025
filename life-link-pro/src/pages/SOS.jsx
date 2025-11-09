@@ -5,15 +5,15 @@ export default function SOS({ navigate }) {
   const [feed, setFeed] = useState([]);
   const [filter, setFilter] = useState("ALL");
 
-  // Subscribe to SOS updates
+  // 📡 Subscribe and auto-refresh when list changes
   useEffect(() => {
     const unsubscribe = subscribeSOS((list) => {
-      setFeed(filterSOS(filter)); // update according to filter
+      setFeed(sortByPriority(filterSOS(filter)));
     });
     return () => unsubscribe();
   }, [filter]);
 
-  // Trigger SOS with severity
+  // 🚨 Trigger SOS by severity
   const triggerSOS = (severity) => {
     sendSOS({
       severity,
@@ -26,10 +26,10 @@ export default function SOS({ navigate }) {
       timestamp: new Date().toISOString(),
       resolved: false,
     });
-    setFeed(filterSOS(filter));
+    setFeed(sortByPriority(filterSOS(filter)));
   };
 
-  // Helper for color themes by severity
+  // 🎨 Severity color themes
   const getSeverityStyle = (severity) => {
     switch (severity) {
       case "HIGH":
@@ -41,6 +41,20 @@ export default function SOS({ navigate }) {
       default:
         return "bg-gray-100 border-gray-300 text-gray-700";
     }
+  };
+
+  // 🔢 Priority sorting: HIGH → MEDIUM → LOW
+  const sortByPriority = (list) => {
+    const priorityOrder = { HIGH: 3, MEDIUM: 2, LOW: 1 };
+    return [...list].sort(
+      (a, b) => (priorityOrder[b.severity] || 0) - (priorityOrder[a.severity] || 0)
+    );
+  };
+
+  // ✅ Mark as resolved (remove immediately)
+  const handleResolve = (id) => {
+    markResolved(id);
+    setFeed((prev) => prev.filter((s) => s.id !== id));
   };
 
   return (
@@ -60,8 +74,9 @@ export default function SOS({ navigate }) {
         <select
           value={filter}
           onChange={(e) => {
-            setFilter(e.target.value);
-            setFeed(filterSOS(e.target.value));
+            const newFilter = e.target.value;
+            setFilter(newFilter);
+            setFeed(sortByPriority(filterSOS(newFilter)));
           }}
           className="p-2 border border-gray-300 rounded-lg bg-white shadow-sm text-sm"
         >
@@ -108,26 +123,17 @@ export default function SOS({ navigate }) {
               )}`}
             >
               <div className="flex flex-col">
-                <span className="font-semibold">
-                  {s.status}{" "}
-                  {s.resolved && (
-                    <span className="text-xs font-normal text-gray-500">
-                      (Resolved)
-                    </span>
-                  )}
-                </span>
+                <span className="font-semibold">{s.status}</span>
                 <span className="text-xs text-gray-600">
                   {new Date(s.timestamp).toLocaleString()}
                 </span>
               </div>
-              {!s.resolved && (
-                <button
-                  onClick={() => markResolved(s.id)}
-                  className="text-xs px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
-                >
-                  Mark Resolved
-                </button>
-              )}
+              <button
+                onClick={() => handleResolve(s.id)}
+                className="text-xs px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
+              >
+                Mark Resolved
+              </button>
             </li>
           ))}
         </ul>
