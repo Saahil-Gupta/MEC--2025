@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { sendSOS, subscribe } from "../stores/sosStore";
+import { sendSOS, subscribeSOS } from "../stores/sosStore";
 
 export default function SOS({ navigate }) {
   const [feed, setFeed] = useState([]);
 
   useEffect(() => {
-    const unsub = subscribe(setFeed);
+    const unsub = subscribeSOS(setFeed);
     return () => unsub && unsub();
   }, []);
 
