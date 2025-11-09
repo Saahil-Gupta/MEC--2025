@@ -7,13 +7,13 @@ let sosList = getData("sosList") || [];
 let listeners = [];
 let offlineQueue = getData("sosQueue") || [];
 
-// 🔁 Update and notify all subscribers
+// Update and notify all subscribers
 function updateSOS() {
   setData("sosList", sosList);
   listeners.forEach((cb) => cb([...sosList]));
 }
 
-// 🚨 Send SOS message with severity
+// Send SOS message with severity
 export function sendSOS(msg) {
   const newSOS = { id: uid(), ...msg };
 
@@ -28,21 +28,21 @@ export function sendSOS(msg) {
   }
 }
 
-// 🧩 Flush queued broadcasts (if any)
+// Flush queued broadcasts (if any)
 export function flushQueue() {
   offlineQueue.forEach((q) => broadcast("sos", q));
   offlineQueue = [];
   setData("sosQueue", []);
 }
 
-// 👂 Subscribe to updates
+// Subscribe to updates
 export function subscribeSOS(callback) {
   listeners.push(callback);
   callback([...sosList]);
   return () => (listeners = listeners.filter((l) => l !== callback));
 }
 
-// 🌐 Listen for cross-tab updates
+// Listen for cross-tab updates
 window.addEventListener("storage", (e) => {
   if (e.key === "sos-broadcast" && e.newValue) {
     const sos = JSON.parse(e.newValue);
@@ -51,7 +51,7 @@ window.addEventListener("storage", (e) => {
   }
 });
 
-// 🎚️ Get alert tone based on severity (optional future use)
+// Get alert tone based on severity (optional future use)
 export function getAlertTone(severity) {
   switch (severity) {
     case "HIGH": return "alarm-high.mp3";
@@ -61,13 +61,13 @@ export function getAlertTone(severity) {
   }
 }
 
-// 🔍 Filter SOS by severity
+// Filter SOS by severity
 export function filterSOS(level) {
   if (level === "ALL") return [...sosList];
   return sosList.filter((s) => s.severity === level);
 }
 
-// 🧹 COMPLETELY DELETE SOS
+// Completely delete SOS
 export function markResolved(id) {
   sosList = sosList.filter((s) => s.id !== id);
   updateSOS();

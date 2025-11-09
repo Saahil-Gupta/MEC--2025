@@ -4,6 +4,7 @@ import { sendSOS, subscribeSOS, filterSOS, markResolved } from "../stores/sosSto
 export default function SOS({ navigate }) {
   const [feed, setFeed] = useState([]);
   const [filter, setFilter] = useState("ALL");
+  const [showGuide, setShowGuide] = useState(false);
 
   // Subscribe and auto-refresh when list changes
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function SOS({ navigate }) {
     }
   };
 
-  // 🔢 Priority sorting: HIGH → MEDIUM → LOW
+  // Priority sorting: HIGH → MEDIUM → LOW
   const sortByPriority = (list) => {
     const priorityOrder = { HIGH: 3, MEDIUM: 2, LOW: 1 };
     return [...list].sort(
@@ -51,7 +52,7 @@ export default function SOS({ navigate }) {
     );
   };
 
-  // ✅ Mark as resolved (remove immediately)
+  // Mark as resolved (remove immediately)
   const handleResolve = (id) => {
     markResolved(id);
     setFeed((prev) => prev.filter((s) => s.id !== id));
@@ -65,7 +66,12 @@ export default function SOS({ navigate }) {
           ← Back
         </button>
         <h2 className="text-xl font-bold">SOS Broadcast</h2>
-        <div></div>
+        <button
+          onClick={() => setShowGuide(!showGuide)}
+          className="text-sm text-blue-600 font-medium underline"
+        >
+          {showGuide ? "Hide Guide" : "Severity Guide"}
+        </button>
       </div>
 
       {/* Filter + Actions */}
@@ -86,21 +92,48 @@ export default function SOS({ navigate }) {
           <option value="LOW">Low</option>
         </select>
 
+        {/* Severity Guide Section */}
+        {showGuide && (
+          <div className="mt-3 p-4 bg-white rounded-2xl shadow-sm border border-gray-200 space-y-3">
+            <h3 className="font-semibold text-gray-800 text-base mb-1">
+              🚦 Severity Guide
+            </h3>
+
+            <div className="space-y-2 text-sm">
+              <div className="p-3 rounded-xl border bg-red-50 border-red-200 text-red-800">
+                <strong>🚨 HIGH:</strong> Critical or life-threatening emergencies (e.g., severe
+                injury, fire, or danger to life).
+              </div>
+
+              <div className="p-3 rounded-xl border bg-yellow-50 border-yellow-200 text-yellow-800">
+                <strong>⚠️ MEDIUM:</strong> Urgent but non-life-threatening situations (e.g., lost
+                person, minor injury, trapped).
+              </div>
+
+              <div className="p-3 rounded-xl border bg-green-50 border-green-200 text-green-800">
+                <strong>🩹 LOW:</strong> Minor issues or supply requests (e.g., water, first aid,
+                status check).
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SOS Buttons */}
         <div className="grid grid-cols-3 gap-3 mt-4">
           <button
-            className="bg-red-600 hover:bg-red-700 text-white font-semibold py-4 rounded-xl shadow"
+            className="bg-red-600 hover:bg-red-700 text-white font-semibold py-4 rounded-xl shadow active:scale-95 transition-transform"
             onClick={() => triggerSOS("HIGH")}
           >
             🚨 High
           </button>
           <button
-            className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-4 rounded-xl shadow"
+            className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-4 rounded-xl shadow active:scale-95 transition-transform"
             onClick={() => triggerSOS("MEDIUM")}
           >
             ⚠️ Medium
           </button>
           <button
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-xl shadow"
+            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-4 rounded-xl shadow active:scale-95 transition-transform"
             onClick={() => triggerSOS("LOW")}
           >
             🩹 Low
