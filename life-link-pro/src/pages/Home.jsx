@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import Logo from "/public/icons/logo.png";
 
 export default function Home({ navigate }) {
   const [weather, setWeather] = useState(null);
   const [alert, setAlert] = useState(null);
 
-  // List of simulated disasters
   const disasters = [
     {
       event: "Flood Warning",
@@ -44,13 +44,10 @@ export default function Home({ navigate }) {
     },
   ];
 
-  // Randomize disaster + fetch weather
   useEffect(() => {
-    // Random disaster selection
     const randomIndex = Math.floor(Math.random() * disasters.length);
     setAlert(disasters[randomIndex]);
 
-    // Optional: Fetch weather
     const fetchWeather = async () => {
       try {
         const res = await fetch(
@@ -72,30 +69,38 @@ export default function Home({ navigate }) {
   }, []);
 
   const playSiren = () => {
-    // To be implemented later
     alert("🔊 Siren would play here!");
   };
 
   return (
     <div className="h-full w-full flex flex-col">
+
       {/* Header */}
-      <div className="p-5 text-center border-b bg-gray-50">
-        <h1 className="text-2xl font-bold text-gray-800">Life-Link Pro</h1>
-        <p className="text-xs text-gray-500">Offline disaster response</p>
+      <div className="p-5 border-b bg-gray-50">
+        <div className="flex items-center gap-3">
+          <img 
+            src={Logo}
+            alt="App Logo"
+            className="w-20 h-20 object-contain"
+          />
+
+          <div className="flex flex-col text-center">
+            <h1 className="text-2xl font-bold text-gray-800">Life-Link Live</h1>
+            <p className="text-xs text-gray-500">Offline disaster response</p>
+          </div>
+        </div>
       </div>
 
-      {/* Simulated Alert Section */}
+      {/* Status Section */}
       <div className="p-4">
         <div className="bg-gray-100 rounded-xl shadow-sm p-4 space-y-3">
           <h2 className="text-sm font-semibold text-gray-700">
             Current Status
           </h2>
 
-          {/* Randomized Alert */}
+          {/* Random Disaster Alert */}
           {alert ? (
-            <div
-              className={`border rounded-lg p-3 ${alert.color} transition-all`}
-            >
+            <div className={`border rounded-lg p-3 ${alert.color} transition-all`}>
               <p className="font-bold text-lg">⚠️ {alert.event}</p>
               <p className="text-sm mt-1">{alert.desc}</p>
               <p className="text-xs text-gray-600 mt-2">
@@ -106,7 +111,7 @@ export default function Home({ navigate }) {
             <p className="text-gray-500 text-sm">✅ No active alerts.</p>
           )}
 
-          {/* Weather Section */}
+          {/* Weather */}
           {weather ? (
             <div className="flex items-center gap-3">
               <img src={weather.icon} alt="Weather Icon" className="w-8 h-8" />
@@ -128,7 +133,7 @@ export default function Home({ navigate }) {
         </div>
       </div>
 
-      {/* Main Navigation Buttons */}
+      {/* Main Buttons */}
       <div className="flex-1 p-6 space-y-4">
         <button
           onClick={() => navigate("sos")}
