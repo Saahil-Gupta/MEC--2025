@@ -17,7 +17,7 @@ export default function FirstAid({ navigate }) {
           >
             ← Back
           </button>
-          <h2 className="text-lg font-semibold text-gray-800">
+          <h2 className="text-xl font-bold">
             First Aid Guide
           </h2>
           <div className="w-10" />
