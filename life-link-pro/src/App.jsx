@@ -9,8 +9,12 @@ import FirstAid from "./pages/FirstAid";
 
 export default function App() {
   const [page, setPage] = useState("home");
+  const [params, setParams] = useState(null);
 
-  const navigate = (p) => setPage(p);
+  function navigate(p, data = null) {
+    setParams(data);
+    setPage(p);
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">

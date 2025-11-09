@@ -3,7 +3,9 @@ import BottomNav from "../components/BottomNav";
 
 export default function MobileFrame({ children, navigate, current }) {
   return (
-    <div className="w-[390px]
+    <div className="w-full h-screen flex justify-center items-start bg-gray-200 overflow-auto">
+      <div
+        className="w-[390px]
           h-[800px]
           bg-white
           rounded-[40px]
