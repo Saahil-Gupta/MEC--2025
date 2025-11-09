@@ -5,8 +5,6 @@ import Logo_text from "/public/icons/logo_text.png";
 export default function Home({ navigate }) {
   const [weather, setWeather] = useState(null);
   const [alert, setAlert] = useState(null);
-  const alarmRef = useRef(null);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const disasters = [
     {
@@ -72,43 +70,8 @@ export default function Home({ navigate }) {
   }, []);
 
   const playSiren = () => {
-    // Create audio instance if needed
-    if (!alarmRef.current) {
-      // change the path below if your file has a different name or is in a subfolder of public/
-      alarmRef.current = new Audio("/siren.mp3");
-      alarmRef.current.preload = "auto";
-      alarmRef.current.loop = true; // keep siren looping until paused
-    }
-
-    const audio = alarmRef.current;
-
-    if (!isPlaying) {
-      // play
-      const p = audio.play();
-      if (p && typeof p.catch === "function") p.catch((e) => console.warn("Audio play failed:", e));
-      setIsPlaying(true);
-    } else {
-      // pause
-      audio.pause();
-      audio.currentTime = 0;
-      setIsPlaying(false);
-    }
+    alert("🔊 Siren would play here!");
   };
-
-  // cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (alarmRef.current) {
-        try {
-          alarmRef.current.pause();
-          alarmRef.current.currentTime = 0;
-        } catch (e) {
-          // ignore
-        }
-        alarmRef.current = null;
-      }
-    };
-  }, []);
 
   return (
     <div className="h-full w-full flex flex-col">
@@ -145,7 +108,7 @@ export default function Home({ navigate }) {
 
       {/* Status Section */}
       <div className="p-3">
-        <div className="bg-gray-100 rounded-xl shadow-sm p-3 space-y-0.5">
+        <div className="bg-gray-100 rounded-xl shadow-sm p-4 space-y-0.5">
           <h2 className="text-sm font-semibold text-gray-700">
             Current Status
           </h2>
@@ -180,13 +143,13 @@ export default function Home({ navigate }) {
             onClick={playSiren}
             className="w-full bg-yellow-500 text-white font-semibold py-2 rounded-lg hover:bg-yellow-400 transition"
           >
-            {isPlaying ? "🚨 Pause Siren" : "🚨 Play Distress Siren"}
+            🚨 Play Distress Siren
           </button>
         </div>
       </div>
 
       {/* Main Buttons */}
-      <div className="flex-1 p-3 space-y-2">
+      <div className="flex-1 p-4 space-y-1.5">
         {/* Send SOS - Large prominent button */}
         <button
           onClick={() => navigate("sos")}
@@ -195,39 +158,36 @@ export default function Home({ navigate }) {
           SEND SOS
         </button>
 
-        <button
-          onClick={() => navigate("hazards")}
-          className="w-full bg-blue-600 text-white py-4 rounded-xl text-lg shadow-md hover:bg-blue-700"
-        >
-          Hazard Reports
-        </button>
-
-        <button
-          onClick={() => navigate("firstAid")}
-          className="w-full bg-green-600 text-white py-4 rounded-xl text-lg shadow-md hover:bg-green-700"
-        >
-          First Aid Guide
-        </button>
-
-        <button
-          onClick={() => navigate("shelters")}
-          className="w-full bg-purple-600 text-white py-4 rounded-xl text-lg shadow-md hover:bg-purple-700"
-        >
-          Find Nearby Shelters
-        </button>
-
-    
-        <button
-          onClick={() => navigate("faq")}
-          className="w-full bg-orange-500 text-white py-4 rounded-xl text-lg shadow-md hover:bg-orange-600"
-        >
-          Emergency FAQs
-        </button>
-
-
-
+        {/* Top Row - Two smaller buttons */}
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={() => navigate("hazards")}
+            className="bg-blue-600 border-2 border-blue-400 rounded-xl p-4 flex flex-col items-center justify-center gap-2 shadow-lg hover:bg-blue-700 transition-all hover:scale-105"
+          >
+            <img 
+              src="/icons/hazard.png" 
+              alt="Hazard" 
+              className="w-12 h-12 object-contain"
+            />
+            <span className="font-semibold text-sm text-center text-white">Hazard Reports</span>
+          </button>
+          
+          <button
+            onClick={() => navigate("shelters")}
+            className="bg-purple-600 border-2 border-purple-400 rounded-xl p-4 flex flex-col items-center justify-center gap-2 shadow-lg hover:bg-purple-700 transition-all hover:scale-105"
+          >
+            <img 
+              src="/icons/shelter.png" 
+              alt="Shelter" 
+              className="w-12 h-12 object-contain"
+            />
+            <div className="text-center text-white">
+              <div className="font-semibold text-sm">Find Nearby</div>
+              <div className="text-xs">Shelters</div>
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-
