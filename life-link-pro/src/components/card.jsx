@@ -1,4 +1,4 @@
-// src/components/Card.jsx
+
 import React from "react";
 
 export default function Card({ title, content, onClick, flipped = false }) {
