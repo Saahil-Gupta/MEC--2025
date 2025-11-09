@@ -1,53 +1,13 @@
-import { useEffect, useState } from "react";
-import Logo from "/public/icons/logo_logo.png";
-import Logo_text from "/public/icons/logo_text.png";
+import { useEffect, useState, useRef } from "react";
+import Logo from "/icons/logo_logo.png";
+import Logo_text from "/icons/logo_text.png";
 
-export default function Home({ navigate }) {
+export default function Home({ navigate, alert }) {
   const [weather, setWeather] = useState(null);
-  const [alert, setAlert] = useState(null);
+  const alarmRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  const disasters = [
-    {
-      event: "Flood Warning",
-      desc: "Heavy rainfall causing water levels to rise. Avoid low-lying areas.",
-      sender: "National Weather Service",
-      color: "bg-blue-100 text-blue-800 border-blue-400",
-    },
-    {
-      event: "Earthquake Alert",
-      desc: "Seismic activity detected nearby. Take cover under sturdy furniture.",
-      sender: "Geological Safety Agency",
-      color: "bg-yellow-100 text-yellow-800 border-yellow-400",
-    },
-    {
-      event: "Hurricane Watch",
-      desc: "High winds and heavy rain expected in coastal areas.",
-      sender: "Disaster Response Unit",
-      color: "bg-red-100 text-red-800 border-red-400",
-    },
-    {
-      event: "Tornado Warning",
-      desc: "Seek shelter immediately. Avoid windows and stay indoors.",
-      sender: "Emergency Broadcast Center",
-      color: "bg-orange-100 text-orange-800 border-orange-400",
-    },
-    {
-      event: "Wildfire Risk",
-      desc: "Dry conditions increase fire danger. Avoid open flames.",
-      sender: "Forest Fire Management Authority",
-      color: "bg-green-100 text-green-800 border-green-400",
-    },
-    {
-      event: "Storm Alert",
-      desc: "Severe thunderstorm expected. Stay indoors and unplug electronics.",
-      sender: "Weather Safety Bureau",
-      color: "bg-purple-100 text-purple-800 border-purple-400",
-    },
-  ];
 
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * disasters.length);
-    setAlert(disasters[randomIndex]);
 
     const fetchWeather = async () => {
       try {
@@ -67,11 +27,45 @@ export default function Home({ navigate }) {
     };
 
     fetchWeather();
-  }, []);
 
   const playSiren = () => {
-    alert("🔊 Siren would play here!");
+    // Create audio instance if needed
+    if (!alarmRef.current) {
+      // change the path below if your file has a different name or is in a subfolder of public/
+      alarmRef.current = new Audio("/siren.mp3");
+      alarmRef.current.preload = "auto";
+      alarmRef.current.loop = true; // keep siren looping until paused
+    }
+
+    const audio = alarmRef.current;
+
+    if (!isPlaying) {
+      // play
+      const p = audio.play();
+      if (p && typeof p.catch === "function") p.catch((e) => console.warn("Audio play failed:", e));
+      setIsPlaying(true);
+    } else {
+      // pause
+      audio.pause();
+      audio.currentTime = 0;
+      setIsPlaying(false);
+    }
   };
+
+  // cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (alarmRef.current) {
+        try {
+          alarmRef.current.pause();
+          alarmRef.current.currentTime = 0;
+        } catch (e) {
+          // ignore
+        }
+        alarmRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <div className="h-full w-full flex flex-col">
@@ -85,13 +79,13 @@ export default function Home({ navigate }) {
           <img
             src={Logo}
             alt="App Logo"
-            className="h-12 w-auto object-contain"   // BIGGER LOGO
+            className="h-13 w-auto object-contain"   // BIGGER LOGO
           />
 
           <img
             src={Logo_text}
             alt="Life-Link Live"
-            className="h-12 w-auto object-contain"  // BIGGER TEXT LOGO
+            className="h-13 w-auto object-contain ml-3"  // BIGGER TEXT LOGO
           />
         </div>
 
@@ -141,15 +135,15 @@ export default function Home({ navigate }) {
           {/* Siren Button */}
           <button
             onClick={playSiren}
-            className="w-full bg-yellow-500 text-white font-semibold py-2 rounded-lg hover:bg-yellow-400 transition"
+            className="w-full bg-yellow-500 text-black font-semibold py-2 rounded-lg hover:bg-yellow-400 transition"
           >
-            🚨 Play Distress Siren
+            {isPlaying ? "🚨 Pause Siren" : "🚨 Play Distress Siren"}
           </button>
         </div>
       </div>
 
       {/* Main Buttons */}
-      <div className="flex-1 p-4 space-y-1.5">
+      <div className="flex-1 p-4 space-y-3">
         {/* Send SOS - Large prominent button */}
         <button
           onClick={() => navigate("sos")}
