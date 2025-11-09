@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import Logo from "/public/icons/logo.png";
+import Logo from "/public/icons/logo_logo.png";
+import Logo_text from "/public/icons/logo_text.png";
 
 export default function Home({ navigate }) {
   const [weather, setWeather] = useState(null);
@@ -77,18 +78,23 @@ export default function Home({ navigate }) {
 
       {/* Header */}
       <div className="p-5 border-b bg-gray-50">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-10 justify-center">
           <img 
             src={Logo}
             alt="App Logo"
-            className="w-20 h-20 object-contain"
+            className="w-19 h-auto object-contain"
           />
 
-          <div className="flex flex-col text-center">
-            <h1 className="text-2xl font-bold text-gray-800">Life-Link Live</h1>
+          <div className="flex items-center"> 
+            <img 
+              src={Logo_text}
+              alt="Life-Link Live"
+              className="w-35 h-auto object-contain" 
+            />
           </div>
         </div>
       </div>
+
 
       {/* Status Section */}
       <div className="p-4">
