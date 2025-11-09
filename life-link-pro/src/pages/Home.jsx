@@ -215,6 +215,16 @@ export default function Home({ navigate }) {
           Find Nearby Shelters
         </button>
 
+    
+        <button
+          onClick={() => navigate("faq")}
+          className="w-full bg-orange-500 text-white py-4 rounded-xl text-lg shadow-md hover:bg-orange-600"
+        >
+          Emergency FAQs
+        </button>
+
+
+
       </div>
     </div>
   );

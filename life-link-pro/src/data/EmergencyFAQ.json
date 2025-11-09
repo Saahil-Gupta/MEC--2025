@@ -1,0 +1,112 @@
+[
+  {
+    "event": "Flood Warning",
+    "desc": "Heavy rainfall causing water levels to rise. Avoid low-lying areas and prepare to move quickly.",
+    "faqs": [
+      {
+        "question": "What should I do if floodwaters start rising?",
+        "answer": "Move immediately to higher ground. Avoid walking or driving through water — even shallow water can be dangerous. Stay tuned to local alerts for evacuation instructions."
+      },
+      {
+        "question": "How can I protect my belongings during a flood?",
+        "answer": "Unplug electrical devices. Move valuables and electronics to upper floors. Keep important documents and medicines in waterproof containers."
+      },
+      {
+        "question": "Can I drink tap water during a flood?",
+        "answer": "Avoid drinking tap water unless officials confirm it’s safe. Use bottled or boiled water. Do not use ice or food that has touched floodwater."
+      },
+      {
+        "question": "What should I do after the flood recedes?",
+        "answer": "Avoid entering damaged buildings until cleared by authorities. Wear boots and gloves when cleaning. Disinfect all surfaces and watch for gas leaks or live wires."
+      }
+    ]
+  },
+  {
+    "event": "Earthquake Alert",
+    "desc": "Ground shaking detected. Stay calm, protect yourself, and move cautiously after the shaking stops.",
+    "faqs": [
+      {
+        "question": "What should I do during an earthquake?",
+        "answer": "Drop, cover, and hold on. Take shelter under sturdy furniture. Stay away from windows, mirrors, and heavy objects."
+      },
+      {
+        "question": "What should I do if I’m outside during an earthquake?",
+        "answer": "Move to an open area away from buildings, trees, and power lines. Stay in place until the shaking stops."
+      },
+      {
+        "question": "How do I prepare my home for earthquakes?",
+        "answer": "Secure shelves and heavy items to walls. Keep emergency supplies ready. Identify safe spots in each room for protection."
+      },
+      {
+        "question": "What should I do after an earthquake?",
+        "answer": "Check yourself and others for injuries. Avoid damaged structures. Turn off gas if you smell leaks and listen for official updates."
+      }
+    ]
+  },
+  {
+    "event": "Hurricane Watch",
+    "desc": "A severe tropical storm is approaching. Prepare for strong winds, heavy rain, and possible flooding.",
+    "faqs": [
+      {
+        "question": "How do I prepare for a hurricane?",
+        "answer": "Secure outdoor items. Board up windows. Stock food, water, medications, and power banks. Charge all devices and keep an emergency kit nearby."
+      },
+      {
+        "question": "Should I evacuate?",
+        "answer": "Follow official evacuation orders. Leave early to avoid blocked roads. Tell someone your destination and route."
+      },
+      {
+        "question": "What should I do during a hurricane?",
+        "answer": "Stay indoors and away from windows. Use battery-powered lights. Avoid open flames and keep listening for weather updates."
+      },
+      {
+        "question": "What should I do after the hurricane passes?",
+        "answer": "Wait for clearance before going outside. Avoid downed power lines, floodwater, and unstable structures. Take photos of damage for insurance claims."
+      }
+    ]
+  },
+  {
+    "event": "Tornado Warning",
+    "desc": "Rotating winds spotted nearby. Take shelter immediately and protect yourself from flying debris.",
+    "faqs": [
+      {
+        "question": "Where is the safest place during a tornado?",
+        "answer": "Go to a basement or a small interior room with no windows. Cover your head and neck with your arms or a sturdy object."
+      },
+      {
+        "question": "What should I do if I’m in a car?",
+        "answer": "Do not try to outrun the tornado. Park safely, keep your seatbelt on, and cover your head below window level."
+      },
+      {
+        "question": "What are the signs of a tornado?",
+        "answer": "Look for dark, rotating clouds, loud roaring sounds, and sudden calm after strong winds. Seek shelter immediately if you notice these signs."
+      },
+      {
+        "question": "What should I do after a tornado?",
+        "answer": "Watch for hazards like broken glass and gas leaks. Stay out of damaged buildings. Listen to local authorities for recovery updates."
+      }
+    ]
+  },
+  {
+    "event": "Wildfire Risk",
+    "desc": "Hot, dry, and windy conditions increase fire danger. Stay alert and ready to evacuate if needed.",
+    "faqs": [
+      {
+        "question": "How can I prepare for a wildfire?",
+        "answer": "Clear dry leaves and debris around your home. Keep fire extinguishers ready. Store emergency kits and plan evacuation routes."
+      },
+      {
+        "question": "What should I do if evacuation is ordered?",
+        "answer": "Leave immediately. Wear protective clothing like long sleeves and masks. Take water, ID, medications, and a first aid kit."
+      },
+      {
+        "question": "Can I stay indoors during heavy smoke?",
+        "answer": "Yes. Close windows and doors. Use air purifiers or wet towels to block smoke. Wear N95 masks when going outside."
+      },
+      {
+        "question": "What should I do after a wildfire?",
+        "answer": "Avoid burned areas and hot spots. Report smoldering fires. Clean up using gloves and masks to avoid ash inhalation."
+      }
+    ]
+  }
+]
