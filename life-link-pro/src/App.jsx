@@ -20,5 +20,6 @@ export default function App() {
       {page === "addHazard" && <AddHazard navigate={navigate} />}
       {page === "firstAid" && <FirstAid navigate={navigate} />}
     </MobileFrame>
+    
   );
 }
