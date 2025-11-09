@@ -6,6 +6,8 @@ import SOS from "./pages/SOS";
 import HazardMap from "./pages/HazardMap";
 import AddHazard from "./pages/AddHazard";
 import FirstAid from "./pages/FirstAid";
+import Profile from "./pages/Profile";
+import Shelters from "./pages/Shelters";
 
 export default function App() {
   const [page, setPage] = useState("home");
@@ -24,6 +26,8 @@ export default function App() {
         {page === "hazards" && <HazardMap navigate={navigate} />}
         {page === "addHazard" && <AddHazard navigate={navigate} />}
         {page === "firstAid" && <FirstAid navigate={navigate} />}
+        {page === "profile" && <Profile navigate={navigate} />}
+        {page === "shelters" && <Shelters navigate={navigate} />}
       </MobileFrame>
     </div>
   );

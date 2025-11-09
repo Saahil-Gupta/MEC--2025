@@ -255,21 +255,22 @@ export default function HazardMap({ navigate }) {
                 icon={iconFor(h.severity)}
               >
                 <Popup>
-                  <div className="text-sm">
+                  <div className="text-sm space-y-1">
+
                     <div><strong>Severity:</strong> {h.severity}</div>
 
-                    <div>
-                      <strong>Lat:</strong> {h.lat?.toFixed(4) ?? "?"}
-                    </div>
+                    <div><strong>Reported By:</strong> {h.reportedBy}</div>
 
-                    <div>
-                      <strong>Lng:</strong> {h.lng?.toFixed(4) ?? "?"}
-                    </div>
+                    <div><strong>Role:</strong> {h.role}</div>
 
-                    <div>
-                      <strong>Time:</strong>{" "}
-                      {new Date(h.timestamp).toLocaleString()}
-                    </div>
+                    {h.medical && (
+                      <div><strong>Medical Notes:</strong> {h.medical}</div>
+                    )}
+
+                    <div><strong>Lat:</strong> {h.lat.toFixed(4)}</div>
+                    <div><strong>Lng:</strong> {h.lng.toFixed(4)}</div>
+
+                    <div><strong>Time:</strong> {new Date(h.id).toLocaleString()}</div>
                   </div>
                 </Popup>
               </Marker>

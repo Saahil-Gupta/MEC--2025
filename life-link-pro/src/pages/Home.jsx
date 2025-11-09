@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import Logo from "/public/icons/logo.png";
+import Logo from "/public/icons/logo_logo.png";
+import Logo_text from "/public/icons/logo_text.png";
 
 export default function Home({ navigate }) {
   const [weather, setWeather] = useState(null);
@@ -76,18 +77,28 @@ export default function Home({ navigate }) {
     <div className="h-full w-full flex flex-col">
 
       {/* Header */}
-      <div className="p-5 border-b bg-gray-50">
-        <div className="flex items-center gap-3">
-          <img 
-            src={Logo}
-            alt="App Logo"
-            className="w-20 h-20 object-contain"
-          />
+      <div className="p-5 border-b bg-gray-50 relative">
 
-          <div className="flex flex-col text-center">
-            <h1 className="text-2xl font-bold text-gray-800">Life-Link Live</h1>
-          </div>
+        {/* Left Logo */}
+        <img
+          src={Logo}
+          alt="App Logo"
+          className="w-20 h-20 object-contain absolute left-5 top-1/2 -translate-y-1/2"
+        />
+
+        {/* Centered Text */}
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-800">Life-Link Live</h1>
+          <p className="text-xs text-gray-500">Offline disaster response</p>
         </div>
+
+        {/* Profile Button (Right) */}
+        <button
+          onClick={() => navigate("profile")}
+          className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-800"
+        >
+          <img src="/icons/user.png" className="w-7 h-7" alt="Profile" />
+        </button>
       </div>
 
       {/* Status Section */}
@@ -154,6 +165,14 @@ export default function Home({ navigate }) {
         >
           First Aid Guide
         </button>
+
+        <button
+          onClick={() => navigate("shelters")}
+          className="w-full bg-purple-600 text-white py-4 rounded-xl text-lg shadow-md hover:bg-purple-700"
+        >
+          Find Nearby Shelters
+        </button>
+
       </div>
     </div>
   );

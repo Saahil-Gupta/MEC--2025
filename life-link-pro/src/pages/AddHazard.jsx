@@ -1,74 +1,6 @@
-// import { addHazard } from "../stores/hazardStore";
-// import { useState } from "react";
-// import { pendingHazardPos } from "../stores/hazardStore";
-
-// // export default function AddHazard({ navigate, lat, lng }) {
-// export default function AddHazard({ navigate }) {
-//   const { lat, lng } = pendingHazardPos || {};
-//   const [severity, setSeverity] = useState("low");
-
-//   const submit = () => {
-//     addHazard({
-//       id: Date.now(),
-//       lat,
-//       lng,
-//       severity,
-//     });
-//     navigate("hazards");
-//   };
-
-//   const SevBtn = ({ value, label }) => (
-//     <button
-//       onClick={() => setSeverity(value)}
-//       className={`flex-1 py-3 rounded-xl border ${
-//         severity === value ? "bg-black text-white" : "bg-white"
-//       }`}
-//     >
-//       {label}
-//     </button>
-//   );
-
-//   if (!lat || !lng) {
-//     return (
-//       <div className="p-5">
-//         <p className="text-red-600 font-semibold">No location selected.</p>
-//         <button onClick={() => navigate("hazards")} className="text-blue-600 mt-3">← Back</button>
-//       </div>
-//     );
-//   }
-//   return (
-//     <div className="h-full w-full flex flex-col">
-//       <div className="p-4 border-b flex items-center gap-3">
-//         <button onClick={() => navigate("hazards")} className="text-blue-600">
-//           ← Back
-//         </button>
-//         <h2 className="text-xl font-bold">Add Hazard</h2>
-//       </div>
-
-//       <div className="p-5 space-y-5">
-
-//         <div>
-//           <div className="text-sm font-semibold mb-2">Severity</div>
-//           <div className="flex gap-3">
-//             <SevBtn value="low" label="Low" />
-//             <SevBtn value="medium" label="Medium" />
-//             <SevBtn value="high" label="High" />
-//           </div>
-//         </div>
-
-//         <button
-//           onClick={submit}
-//           className="w-full bg-blue-600 text-white py-4 rounded-xl text-lg"
-//         >
-//           Confirm Hazard
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
-
 import { addHazard, pendingHazardPos } from "../stores/hazardStore";
 import { useState } from "react";
+import { getUser } from "../stores/userStore";
 
 export default function AddHazard({ navigate }) {
 
@@ -97,14 +29,18 @@ export default function AddHazard({ navigate }) {
   }
 
   const [severity, setSeverity] = useState("Low");
+  const user = getUser();
 
   const submit = () => {
     addHazard({
+      id: Date.now(),
       lat,
       lng,
-      severity, // ✅ hazardStore generates the ID
+      severity,
+      reportedBy: user?.name || "Anonymous",
+      role: user?.role || "Citizen",
+      medical: user?.medical || "",
     });
-
     navigate("hazards");
   };
 
