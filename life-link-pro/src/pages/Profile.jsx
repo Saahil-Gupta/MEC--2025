@@ -64,7 +64,7 @@ export default function Profile({ navigate }) {
             <div className="flex justify-center mb-4">
               <img
                 src="/icons/placeholder_user.png"
-                alt="placeholder_User"
+                alt="placeholder_user"
                 className="w-24 h-24 rounded-full border-2 border-gray-300"
               />
             </div>
