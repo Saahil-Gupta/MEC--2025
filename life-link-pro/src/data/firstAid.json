@@ -65,5 +65,49 @@
       "Do not give food or water.",
       "Call for emergency help and monitor their breathing and pulse."
     ]
+  },
+  {
+    "title": "Seizure Response",
+    "description": "For someone having a seizure.",
+    "steps": [
+      "Do not restrain the person.",
+      "Clear the area of hard or sharp objects.",
+      "Place something soft under their head if possible.",
+      "Time the seizure — if it lasts longer than 5 minutes, call emergency services.",
+      "After the seizure, place the person on their side to keep the airway clear."
+    ]
+  },
+  {
+    "title": "Heatstroke / Heat Exhaustion",
+    "description": "For victims exposed to extreme heat.",
+    "steps": [
+      "Move the person to a cooler place.",
+      "Loosen tight clothing.",
+      "Cool the person with wet cloths or a cool bath.",
+      "Offer water if the person is conscious and able to drink.",
+      "Seek medical help if symptoms persist or worsen."
+    ]
+  },
+  {
+    "title": "Hypothermia",
+    "description": "For someone showing signs of extreme cold exposure.",
+    "steps": [
+      "Move the person to a warm, dry place.",
+      "Remove any wet clothing and cover with blankets.",
+      "Offer warm fluids if conscious, do not give alcohol.",
+      "Keep the person still and monitor breathing.",
+      "Call for emergency help immediately."
+    ]
+  },
+  {
+    "title": "Allergic Reaction / Anaphylaxis",
+    "description": "For severe allergic reactions.",
+    "steps": [
+      "Check for signs of difficulty breathing, swelling, or hives.",
+      "Administer an epinephrine auto-injector if available.",
+      "Call emergency services immediately.",
+      "Keep the person lying down and monitor their condition.",
+      "Be prepared to perform CPR if the person becomes unresponsive."
+    ]
   }
 ]
