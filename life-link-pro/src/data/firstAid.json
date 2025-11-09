@@ -1,0 +1,113 @@
+[
+  {
+    "title": "CPR (Cardiopulmonary Resuscitation)",
+    "description": "For unresponsive or non-breathing individuals.",
+    "steps": [
+      "Check if the person is responsive and breathing.",
+      "Call emergency services immediately if unresponsive.",
+      "Place the heel of your hand on the center of the chest.",
+      "Push hard and fast — about 2 inches deep, 100–120 times per minute.",
+      "If trained, give 2 rescue breaths after every 30 compressions.",
+      "Continue CPR until help arrives or the person starts breathing."
+    ]
+  },
+  {
+    "title": "Bleeding Control",
+    "description": "Stop severe bleeding quickly and safely.",
+    "steps": [
+      "Put on disposable gloves if available.",
+      "Apply firm, direct pressure with a clean cloth or bandage.",
+      "If bleeding continues, do not remove the first cloth — add another layer.",
+      "Elevate the injured limb if possible.",
+      "Once bleeding stops, secure the bandage tightly and monitor for shock."
+    ]
+  },
+  {
+    "title": "Burn Care",
+    "description": "For mild to moderate burns caused by heat or chemicals.",
+    "steps": [
+      "Cool the burn under running water for at least 10 minutes.",
+      "Remove any jewelry or tight clothing near the burn area.",
+      "Cover the area loosely with a sterile, non-stick dressing.",
+      "Do not apply ice, ointment, or butter.",
+      "Seek medical help for severe burns or large affected areas."
+    ]
+  },
+  {
+    "title": "Choking (Adult)",
+    "description": "For adults choking and unable to breathe or speak.",
+    "steps": [
+      "Ask the person if they can speak or cough.",
+      "If not, stand behind and give 5 back blows between the shoulder blades.",
+      "Follow with 5 abdominal thrusts (Heimlich maneuver).",
+      "Alternate back blows and thrusts until the object is expelled or help arrives.",
+      "If the person becomes unresponsive, start CPR."
+    ]
+  },
+  {
+    "title": "Fracture (Broken Bone)",
+    "description": "Immobilize and protect broken bones.",
+    "steps": [
+      "Keep the injured limb still and support it with a splint if possible.",
+      "Do not attempt to straighten a deformed bone.",
+      "Apply ice wrapped in a cloth to reduce swelling.",
+      "Check for circulation below the injury (numbness or color change).",
+      "Seek immediate medical attention."
+    ]
+  },
+  {
+    "title": "Shock Management",
+    "description": "For victims showing signs of shock after an injury.",
+    "steps": [
+      "Lay the person flat on their back.",
+      "Elevate their legs slightly unless there is a leg injury.",
+      "Keep them warm and comfortable using a blanket or jacket.",
+      "Do not give food or water.",
+      "Call for emergency help and monitor their breathing and pulse."
+    ]
+  },
+  {
+    "title": "Seizure Response",
+    "description": "For someone having a seizure.",
+    "steps": [
+      "Do not restrain the person.",
+      "Clear the area of hard or sharp objects.",
+      "Place something soft under their head if possible.",
+      "Time the seizure — if it lasts longer than 5 minutes, call emergency services.",
+      "After the seizure, place the person on their side to keep the airway clear."
+    ]
+  },
+  {
+    "title": "Heatstroke / Heat Exhaustion",
+    "description": "For victims exposed to extreme heat.",
+    "steps": [
+      "Move the person to a cooler place.",
+      "Loosen tight clothing.",
+      "Cool the person with wet cloths or a cool bath.",
+      "Offer water if the person is conscious and able to drink.",
+      "Seek medical help if symptoms persist or worsen."
+    ]
+  },
+  {
+    "title": "Hypothermia",
+    "description": "For someone showing signs of extreme cold exposure.",
+    "steps": [
+      "Move the person to a warm, dry place.",
+      "Remove any wet clothing and cover with blankets.",
+      "Offer warm fluids if conscious, do not give alcohol.",
+      "Keep the person still and monitor breathing.",
+      "Call for emergency help immediately."
+    ]
+  },
+  {
+    "title": "Allergic Reaction / Anaphylaxis",
+    "description": "For severe allergic reactions.",
+    "steps": [
+      "Check for signs of difficulty breathing, swelling, or hives.",
+      "Administer an epinephrine auto-injector if available.",
+      "Call emergency services immediately.",
+      "Keep the person lying down and monitor their condition.",
+      "Be prepared to perform CPR if the person becomes unresponsive."
+    ]
+  }
+]

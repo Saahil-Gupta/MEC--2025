@@ -1,81 +1,125 @@
-import React, { useState } from 'react';
-import firstAidData from '../../data/firstAid.json';
+import { useState } from "react";
+import firstAidData from "../data/firstAid.json";
 
-const FirstAid = () => {
-  // Index for emergency scenarios
-  const [scenarioIdx, setScenarioIdx] = useState(0);
-  // Index for step within scenario
-  const [stepIdx, setStepIdx] = useState(0);
+export default function FirstAid({ navigate }) {
+  const [selectedAid, setSelectedAid] = useState(null);
+  const [stepIndex, setStepIndex] = useState(0);
 
-  const scenario = firstAidData[scenarioIdx];
-  const steps = scenario.steps;
+  // --- LIST VIEW ---
+  if (!selectedAid) {
+    return (
+      <div className="h-full w-full flex flex-col bg-gray-50">
+        {/* Header */}
+        <div className="p-4 border-b bg-white flex items-center justify-between shadow-sm">
+          <button
+            onClick={() => navigate("home")}
+            className="text-blue-600 font-medium"
+          >
+            ← Back
+          </button>
+          <h2 className="text-lg font-semibold text-gray-800">
+            First Aid Guide
+          </h2>
+          <div className="w-10" />
+        </div>
 
-  // Move to previous scenario
-  const handlePrevScenario = () => {
-    setScenarioIdx((idx) => Math.max(0, idx - 1));
-    setStepIdx(0); // reset step to 0
-  };
+        {/* Aid List */}
+        <div className="flex-1 overflow-y-auto p-4">
+          <h3 className="text-gray-700 font-semibold mb-3">
+            Select a First Aid Topic
+          </h3>
+          <ul className="space-y-3">
+            {firstAidData.map((aid, idx) => (
+              <li
+                key={idx}
+                onClick={() => {
+                  setSelectedAid(aid);
+                  setStepIndex(0);
+                }}
+                className="p-4 bg-white border border-gray-200 rounded-xl shadow-sm 
+                           hover:bg-blue-50 active:scale-[0.98] transition-all 
+                           cursor-pointer flex justify-between items-center"
+              >
+                <div>
+                  <h4 className="font-semibold text-gray-800">{aid.title}</h4>
+                  <p className="text-sm text-gray-600">{aid.description}</p>
+                </div>
+                <span className="text-blue-600 font-semibold text-xl">›</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
+  }
 
-  // Move to next scenario
-  const handleNextScenario = () => {
-    setScenarioIdx((idx) => Math.min(firstAidData.length - 1, idx + 1));
-    setStepIdx(0); // reset step to 0
-  };
-
-  // Move to previous step
-  const handlePrevStep = () => {
-    setStepIdx((idx) => Math.max(0, idx - 1));
-  };
-
-  // Move to next step
-  const handleNextStep = () => {
-    setStepIdx((idx) => Math.min(steps.length - 1, idx + 1));
-  };
+  // --- STEP VIEW ---
+  const steps = selectedAid.steps;
+  const isFirstStep = stepIndex === 0;
+  const isLastStep = stepIndex === steps.length - 1;
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow">
-      <h2 className="text-xl font-bold mb-2">First Aid Guide</h2>
-      <div className="mb-2">
-        <span className="font-semibold">Scenario:</span> {scenario.title}
+    <div className="h-full w-full flex flex-col bg-gray-50">
+      {/* Header */}
+      <div className="p-4 bg-white border-b shadow-sm flex items-center justify-between">
+        <button
+          onClick={() => {
+            setSelectedAid(null);
+            setStepIndex(0);
+          }}
+          className="text-blue-600 font-medium"
+        >
+          ← Back
+        </button>
+        <h2 className="text-center font-semibold text-base flex-1 text-gray-800">
+          {selectedAid.title}
+        </h2>
+        <div className="w-10" />
       </div>
-      <div className="mb-4">
-        <span className="font-semibold">Step {stepIdx + 1} of {steps.length}:</span>
-        <div className="mt-2 text-lg">{steps[stepIdx]}</div>
+
+      {/* Step View */}
+      <div className="flex-1 flex flex-col justify-center items-center px-5 py-8 text-center">
+        <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 shadow-sm w-full max-w-md text-gray-800">
+          <p className="inline-block bg-blue-100 text-blue-800 text-sm font-semibold px-3 py-1 rounded-full mb-3">
+            Step {stepIndex + 1} of {steps.length}
+          </p>
+          <p className="text-xl font-medium leading-relaxed">
+            {steps[stepIndex]}
+          </p>
+        </div>
       </div>
-      <div className="flex justify-between mb-2">
-        <button
-          onClick={handlePrevScenario}
-          disabled={scenarioIdx === 0}
-          className="px-2 py-1 bg-gray-200 rounded disabled:opacity-50"
-        >
-          &#8592; Prev Scenario
-        </button>
-        <button
-          onClick={handleNextScenario}
-          disabled={scenarioIdx === firstAidData.length - 1}
-          className="px-2 py-1 bg-gray-200 rounded disabled:opacity-50"
-        >
-          Next Scenario &#8594;
-        </button>
-      </div>
-      <div className="flex justify-between">
-        <button
-          onClick={handlePrevStep}
-          disabled={stepIdx === 0}
-          className="px-2 py-1 bg-blue-500 text-white rounded disabled:opacity-50"
-        >
-          &#8592; Back
-        </button>
-        <button
-          onClick={handleNextStep}
-          disabled={stepIdx === steps.length - 1}
-          className="px-2 py-1 bg-blue-500 text-white rounded disabled:opacity-50"
-        >
-          Next &#8594;
-        </button>
+      {/* Navigation Buttons */}
+      <div className="flex gap-3 p-4 bg-white border-t shadow-sm">
+        {!isFirstStep ? (
+          <button
+            onClick={() => setStepIndex((i) => i - 1)}
+            className="flex-1 py-3 rounded-xl bg-gray-200 text-gray-800 font-medium hover:bg-gray-300 active:scale-95 transition-transform"
+          >
+            ← Previous
+          </button>
+        ) : (
+          <div className="flex-1" />
+        )}
+
+        {!isLastStep ? (
+          <button
+            onClick={() => setStepIndex((i) => i + 1)}
+            className="flex-1 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-700 active:scale-95 transition-transform"
+          >
+            Next →
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              setSelectedAid(null);
+              setStepIndex(0);
+            }}
+            className="flex-1 py-3 rounded-xl bg-green-600 text-white font-semibold hover:bg-green-700 active:scale-95 transition-transform"
+          >
+            Done ✅
+          </button>
+        )}
       </div>
     </div>
   );
-};
-
-export default FirstAid;
+}
