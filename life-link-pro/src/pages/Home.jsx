@@ -85,7 +85,7 @@ export default function Home({ navigate }) {
           <img
             src={Logo}
             alt="App Logo"
-            className="h-16 w-auto object-contain"   // BIGGER LOGO
+            className="h-12 w-auto object-contain"   // BIGGER LOGO
           />
 
           <img
