@@ -84,7 +84,7 @@ export default function Home({ navigate }) {
           <img 
             src={Logo}
             alt="App Logo"
-            className="w-20 h-20 object-contain"
+            className="w-19 h-auto object-contain"
           />
 
           <div className="flex items-center"> 
