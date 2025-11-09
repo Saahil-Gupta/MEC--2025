@@ -9,17 +9,26 @@ import FirstAid from "./pages/FirstAid";
 
 export default function App() {
   const [page, setPage] = useState("home");
+  const [params, setParams] = useState(null);
 
-  const navigate = (p) => setPage(p);
+  function navigate(p, data = null) {
+    setParams(data);
+    setPage(p);
+  }
 
   return (
     <MobileFrame>
       {page === "home" && <Home navigate={navigate} />}
+
       {page === "sos" && <SOS navigate={navigate} />}
+
       {page === "hazards" && <HazardMap navigate={navigate} />}
-      {page === "addHazard" && <AddHazard navigate={navigate} />}
+
+      {page === "addHazard" && (
+        <AddHazard navigate={navigate} lat={params.lat} lng={params.lng} />
+      )}
+
       {page === "firstAid" && <FirstAid navigate={navigate} />}
     </MobileFrame>
-    
   );
 }

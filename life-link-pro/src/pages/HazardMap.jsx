@@ -1,53 +1,89 @@
-import { useEffect, useState } from "react";
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
+import L from "leaflet";
+import { useState, useEffect } from "react";
 import { subscribeHazards } from "../stores/hazardStore";
 
 export default function HazardMap({ navigate }) {
   const [hazards, setHazards] = useState([]);
+  const [selectedPos, setSelectedPos] = useState(null);
 
   useEffect(() => {
     const unsub = subscribeHazards(setHazards);
     return () => unsub && unsub();
   }, []);
 
-  const colorFor = (sev) =>
-    sev === "high" ? "bg-red-600"
-    : sev === "medium" ? "bg-yellow-500"
-    : "bg-green-600";
+  function MapClickHandler() {
+    useMapEvents({
+      click(e) {
+        setSelectedPos(e.latlng); 
+      },
+    });
+    return null;
+  }
+
+  const iconFor = (sev) =>
+    new L.Icon({
+      iconUrl:
+        sev === "high"
+          ? "https://cdn-icons-png.flaticon.com/512/565/565547.png"
+          : sev === "medium"
+          ? "https://cdn-icons-png.flaticon.com/512/1038/1038100.png"
+          : "https://cdn-icons-png.flaticon.com/512/190/190411.png",
+      iconSize: [32, 32],
+    });
 
   return (
     <div className="h-full w-full flex flex-col">
-      <div className="p-4 border-b flex items-center gap-3">
-        <button onClick={() => navigate("home")} className="text-blue-600">← Back</button>
-        <h2 className="text-xl font-bold">Hazard Reports</h2>
-      </div>
 
-      <div className="p-5 flex-1 flex flex-col">
-        <div className="flex-1 rounded-xl border bg-gray-50 p-3 overflow-y-auto">
-          {hazards.length === 0 && (
-            <div className="text-sm text-gray-500">No hazards reported yet.</div>
-          )}
-          <ul className="space-y-2">
-            {hazards.map((h) => (
-              <li key={h.id} className="flex items-start gap-3 rounded-lg border bg-white p-3">
-                <span className={`inline-block h-3 w-3 rounded-full mt-1 ${colorFor(h.severity)}`}/>
-                <div className="text-sm">
-                  <div className="font-semibold capitalize">{h.severity} hazard</div>
-                  <div className="text-gray-600">
-                    📍 ({h.lat}, {h.lng}) • {new Date(h.id).toLocaleTimeString()}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <button
-          className="mt-4 w-full bg-blue-600 text-white py-4 rounded-xl text-lg"
-          onClick={() => navigate("addHazard")}
-        >
-          + Add Hazard
+      {/* Header */}
+      <div className="p-3 border-b flex items-center gap-3">
+        <button onClick={() => navigate("home")} className="text-blue-600">
+          ← Back
         </button>
+        <h2 className="text-lg font-bold">Hazard Map</h2>
       </div>
+
+      {/* Map */}
+      <div className="flex-1">
+        <MapContainer
+          center={[43.25, -79.87]}
+          zoom={13}
+          style={{ height: "100%", width: "100%" }}
+        >
+          <TileLayer
+            attribution="© OpenStreetMap"
+            url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+
+          <MapClickHandler />
+
+          {hazards.map((h) => (
+            <Marker
+              key={h.id}
+              position={[h.lat, h.lng]}
+              icon={iconFor(h.severity)}
+            />
+          ))}
+
+          {selectedPos && (
+            <Marker
+              position={[selectedPos.lat, selectedPos.lng]}
+              icon={iconFor("medium")}
+            />
+          )}
+        </MapContainer>
+      </div>
+
+      {selectedPos && (
+        <button
+          onClick={() =>
+            navigate("addHazard", { lat: selectedPos.lat, lng: selectedPos.lng })
+          }
+          className="m-3 py-3 rounded-xl bg-blue-600 text-white text-lg"
+        >
+          Add Hazard Here
+        </button>
+      )}
     </div>
   );
 }
