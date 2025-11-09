@@ -130,7 +130,7 @@ export default function SOS({ navigate }) {
               </div>
               <button
                 onClick={() => handleResolve(s.id)}
-                className="text-xs px-3 py-1 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700"
+                className="text-xs px-3 py-1 rounded-md bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-200 shadow-sm"
               >
                 Mark Resolved
               </button>
