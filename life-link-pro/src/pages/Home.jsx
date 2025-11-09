@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Logo from "/public/icons/logo_logo.png";
 import Logo_text from "/public/icons/logo_text.png";
 
 export default function Home({ navigate }) {
   const [weather, setWeather] = useState(null);
   const [alert, setAlert] = useState(null);
+  const alarmRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const disasters = [
     {
@@ -70,8 +72,43 @@ export default function Home({ navigate }) {
   }, []);
 
   const playSiren = () => {
-    alert("🔊 Siren would play here!");
+    // Create audio instance if needed
+    if (!alarmRef.current) {
+      // change the path below if your file has a different name or is in a subfolder of public/
+      alarmRef.current = new Audio("/siren.mp3");
+      alarmRef.current.preload = "auto";
+      alarmRef.current.loop = true; // keep siren looping until paused
+    }
+
+    const audio = alarmRef.current;
+
+    if (!isPlaying) {
+      // play
+      const p = audio.play();
+      if (p && typeof p.catch === "function") p.catch((e) => console.warn("Audio play failed:", e));
+      setIsPlaying(true);
+    } else {
+      // pause
+      audio.pause();
+      audio.currentTime = 0;
+      setIsPlaying(false);
+    }
   };
+
+  // cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (alarmRef.current) {
+        try {
+          alarmRef.current.pause();
+          alarmRef.current.currentTime = 0;
+        } catch (e) {
+          // ignore
+        }
+        alarmRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <div className="h-full w-full flex flex-col">
@@ -143,7 +180,7 @@ export default function Home({ navigate }) {
             onClick={playSiren}
             className="w-full bg-yellow-500 text-black font-semibold py-2 rounded-lg hover:bg-yellow-400 transition"
           >
-            🚨 Play Distress Siren
+            {isPlaying ? "🚨 Pause Siren" : "🚨 Play Distress Siren"}
           </button>
         </div>
       </div>
